@@ -25,6 +25,14 @@ export function getDatabase() {
  */
 export function closeDatabase(db) {
   if (db && !db.closed) {
+    console.log("Closing DB.....");
     db.close();
+    console.log("DB Closed");
   }
 }
+
+export const queries = {
+  users: "SELECT * FROM users",
+  creditCards: "SELECT * FROM creditCards",
+  accounts: "SELECT * FROM accounts",
+};
