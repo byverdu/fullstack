@@ -5,8 +5,11 @@
   "type": "module",
   "main": "src/app.cjs",
   "scripts": {
-    "start": "nodemon",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/app.cjs",
+    "dev:be": "nodemon",
+    "build": "vite build",
+    "build:watch": "vite build --watch",
+    "dev:fe": "vite"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +22,8 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^9.9.0",
-    "nodemon": "^3.1.10"
+    "@vitejs/plugin-react": "^5.0.1",
+    "nodemon": "^3.1.10",
+    "vite": "^7.1.3"
   }
 }

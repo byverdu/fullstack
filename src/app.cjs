@@ -6,7 +6,7 @@ const PORT = 9696;
 initializeDatabase()
   .then(() => {
     const serverInstance = app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
+      console.log(`Server running at http://localhost:${PORT}`);
     });
 
     // Common Express app events

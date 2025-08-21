@@ -1,6 +1,9 @@
 const express = require("express");
-
+const path = require("path");
 const app = express();
+
+// Add static file serving middleware
+app.use(express.static(path.join(__dirname, "../client")));
 
 // Global database reference
 let db = null;
@@ -55,6 +58,10 @@ app.use((_, res, next) => {
 });
 
 // Routes
+app.get("/", (_, res) => {
+  res.sendFile(path.join(__dirname, "../client/index.html"));
+});
+
 app.get("/users", (_, res) => {
   try {
     const users = db.prepare(queries.users).all();
