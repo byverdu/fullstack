@@ -18,7 +18,8 @@
     "better-sqlite3": "^12.2.0",
     "express": "^5.1.0",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "react-dom": "^19.1.1",
+    "react-error-boundary": "^6.0.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.9.0",

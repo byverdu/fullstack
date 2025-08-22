@@ -1,7 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, StrictMode } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import { createRoot } from "react-dom/client";
 import { StrictMode } from "react";
 import { getUsers, getAccounts, getCreditCards } from "../client/api/index.js";
+
+function ErrorFallback({ error, resetErrorBoundary }) {
+  return (
+    <div role="alert">
+      <p>Something went wrong:</p>
+      <pre style={{ color: "red" }}>{error.message}</pre>
+      <button onClick={resetErrorBoundary}>Try again</button>
+    </div>
+  );
+}
 
 const Hello = () => {
   const [users, setUsers] = useState([]);
