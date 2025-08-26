@@ -9,7 +9,20 @@
     "dev:be": "nodemon",
     "build": "vite build",
     "build:watch": "vite build --watch",
-    "dev:fe": "vite"
+    "dev:fe": "vite",
+    "dev": "concurrently \"npm run dev:be\" \"npm run dev:fe\"",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "keywords": [],
   "author": "",
@@ -23,8 +36,15 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^9.9.0",
+    "@types/eslint": "^9.6.1",
+    "@types/node": "^24.3.0",
     "@vitejs/plugin-react": "^5.0.1",
+    "concurrently": "^9.2.1",
+    "eslint": "^9.34.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.5",
     "nodemon": "^3.1.10",
+    "prettier": "^3.6.2",
     "vite": "^7.1.3"
   }
 }
