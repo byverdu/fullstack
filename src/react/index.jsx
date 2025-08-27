@@ -1,14 +1,12 @@
-import { useState, useEffect, StrictMode } from "react";
-import { ErrorBoundary } from "react-error-boundary";
-import { createRoot } from "react-dom/client";
-import { StrictMode } from "react";
-import { getUsers, getAccounts, getCreditCards } from "../client/api/index.js";
+import { useState, useEffect, StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { getUsers, getAccounts, getCreditCards } from '../client/api/index.js';
 
 function ErrorFallback({ error, resetErrorBoundary }) {
   return (
     <div role="alert">
       <p>Something went wrong:</p>
-      <pre style={{ color: "red" }}>{error.message}</pre>
+      <pre style={{ color: 'red' }}>{error.message}</pre>
       <button onClick={resetErrorBoundary}>Try again</button>
     </div>
   );
@@ -20,13 +18,13 @@ const Hello = () => {
   const [creditCards, setCreditCards] = useState([]);
 
   useEffect(() => {
-    getUsers().then((users) => {
+    getUsers().then(users => {
       setUsers(users);
     });
-    getAccounts().then((accounts) => {
+    getAccounts().then(accounts => {
       setAccounts(accounts);
     });
-    getCreditCards().then((creditCards) => {
+    getCreditCards().then(creditCards => {
       setCreditCards(creditCards);
     });
   }, []);
@@ -40,11 +38,11 @@ const Hello = () => {
   );
 };
 
-const domNode = document.getElementById("root");
+const domNode = document.getElementById('root');
 const root = createRoot(domNode);
 
 root.render(
   <StrictMode>
     <Hello />
-  </StrictMode>
+  </StrictMode>,
 );

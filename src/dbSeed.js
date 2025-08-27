@@ -1,19 +1,19 @@
-import Database from "better-sqlite3";
-import path from "path";
-import { faker } from "@faker-js/faker";
+import Database from 'better-sqlite3';
+import path from 'path';
+import { faker } from '@faker-js/faker';
 /**
  * Initialize the database with tables and sample data
  */
 function initializeDatabase() {
   try {
     // Create/connect to database file
-    const dbPath = path.join(process.cwd(), "database", "test.db");
+    const dbPath = path.join(process.cwd(), 'database', 'test.db');
     const db = new Database(dbPath);
 
-    console.log("Connected to SQLite database successfully");
+    console.log('Connected to SQLite database successfully');
 
     // Enable foreign keys
-    db.pragma("foreign_keys = ON");
+    db.pragma('foreign_keys = ON');
 
     // Create tables
     createTables(db);
@@ -21,12 +21,12 @@ function initializeDatabase() {
     // Insert sample data
     insertSampleData(db);
 
-    console.log("Database initialized successfully");
+    console.log('Database initialized successfully');
 
     // Close the database connection
     db.close();
   } catch (error) {
-    console.error("Database initialization failed:", error);
+    console.error('Database initialization failed:', error);
     process.exit(1);
   }
 }
@@ -75,7 +75,7 @@ function createTables(db) {
     )
   `);
 
-  console.log("Tables created successfully");
+  console.log('Tables created successfully');
 }
 
 /**
@@ -106,13 +106,13 @@ function insertSampleData(db) {
       userId,
       faker.internet.username(),
       faker.internet.email(),
-      faker.internet.password()
+      faker.internet.password(),
     );
     insertAccount.run(
       accountId,
       faker.finance.accountName(),
       userId,
-      faker.finance.amount(100, 1000000)
+      faker.finance.amount(100, 1000000),
     );
     if (index % 2 === 0) {
       const creditCardId = faker.string.uuid();
@@ -121,12 +121,12 @@ function insertSampleData(db) {
         faker.finance.accountName(),
         userId,
         accountId,
-        faker.finance.amount(100, 1000000)
+        faker.finance.amount(100, 1000000),
       );
     }
   });
 
-  console.log("Sample data inserted successfully");
+  console.log('Sample data inserted successfully');
 }
 
 // Run the initialization
