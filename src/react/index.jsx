@@ -29,6 +29,8 @@ const Hello = () => {
     });
   }, []);
 
+  console.log(users, accounts, creditCards);
+
   return (
     <div>
       <h1>Hello {users.length}</h1>

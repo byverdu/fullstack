@@ -5,6 +5,8 @@ const app = express();
 const middleware = require('./middleware.cjs');
 const controllers = require('./controllers.cjs');
 
+const lol = 'lol';
+
 // Add static file serving middleware
 app.use(express.static(path.join(__dirname, '../client')));
 
