@@ -2,6 +2,9 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
+const middleware = require('./middleware.cjs');
+const controllers = require('./controllers.cjs');
+
 // Add static file serving middleware
 app.use(express.static(path.join(__dirname, '../client')));
 
@@ -49,47 +52,20 @@ async function initializeDatabase() {
   }
 }
 
-// Middleware to ensure database is available
-app.use((_, res, next) => {
-  if (!db) {
-    return res.status(503).json({ error: 'Database not available' });
-  }
-  next();
-});
+initializeDatabase()
+  .then(() => {
+    // Middleware to ensure database is available
+    app.use(middleware(db).dbConnected);
 
-// Routes
-app.get('/', (_, res) => {
-  res.sendFile(path.join(__dirname, '../client/index.html'));
-});
+    // Routes
+    app.get('/', controllers(db, queries).getRoot);
+    app.get('/users', controllers(db, queries).getAllUsers);
+    app.get('/accounts', controllers(db, queries).getAllAcoounts);
+    app.get('/creditCards', controllers(db, queries).getAllCreditCards);
+  })
+  .catch(error => {
+    console.error('Failed to start server:', error);
+    process.exit(1);
+  });
 
-app.get('/users', (_, res) => {
-  try {
-    const users = db.prepare(queries.users).all();
-    res.json(users);
-  } catch (error) {
-    console.error('Error fetching users:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-app.get('/accounts', (_, res) => {
-  try {
-    const accounts = db.prepare(queries.accounts).all();
-    res.json(accounts);
-  } catch (error) {
-    console.error('Error fetching accounts:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-app.get('/creditCards', (_, res) => {
-  try {
-    const creditCards = db.prepare(queries.creditCards).all();
-    res.json(creditCards);
-  } catch (error) {
-    console.error('Error fetching credit cards:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-module.exports = { app, initializeDatabase };
+module.exports = app;
