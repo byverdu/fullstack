@@ -23,7 +23,7 @@ initializeDatabase()
       console.log('Server is listening for connections');
     });
 
-    serverInstance.on('connection', socket => {
+    serverInstance.on('connection', () => {
       console.log('New connection established');
     });
 

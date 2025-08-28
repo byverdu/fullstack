@@ -29,7 +29,7 @@ async function initializeDatabase() {
       }
     };
 
-    process.on('SIGTERM', signal => gracefulShutdown('SIGTERM'));
+    process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
     process.on('SIGINT', () => gracefulShutdown('SIGINT'));
 
     // Handle uncaught exceptions
