@@ -2,6 +2,8 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
+const xoox = '';
+
 const middleware = require('./middleware.cjs');
 const controllers = require('./controllers.cjs');
 
