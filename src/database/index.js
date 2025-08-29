@@ -35,4 +35,12 @@ export const queries = {
   users: 'SELECT * FROM users',
   creditCards: 'SELECT * FROM creditCards',
   accounts: 'SELECT * FROM accounts',
+  getUserByEmail: 'SELECT * FROM users WHERE email = ?',
+  getUserByName: 'SELECT * FROM users WHERE username = ?',
+  addUser:
+    'INSERT INTO users (id, username, email, password_hash) VALUES (?, ?, ?, ?)',
+  addAccount:
+    'INSERT INTO accounts (id, nickname, user_id, balance) VALUES (?, ?, ?, ?)',
+  addCreditCard:
+    'INSERT INTO creditCards (id, nickname, user_id, balance) VALUES (?, ?, ?, ?)',
 };

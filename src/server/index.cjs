@@ -1,14 +1,12 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const dotenv = require('dotenv');
 
 const middleware = require('./middleware.cjs');
 const controllers = require('./controllers.cjs');
 
-const lol = 'lol';
-
-// Add static file serving middleware
-app.use(express.static(path.join(__dirname, '../client')));
+dotenv.config();
 
 // Global database reference
 let db = null;
@@ -56,6 +54,10 @@ async function initializeDatabase() {
 
 initializeDatabase()
   .then(() => {
+    // Middleware to parse JSON bodies
+    app.use(express.json());
+    // Serve static files from the client directory
+    app.use(express.static(path.join(__dirname, '../client')));
     // Middleware to ensure database is available
     app.use(middleware(db).dbConnected);
 
@@ -64,6 +66,9 @@ initializeDatabase()
     app.get('/users', controllers(db, queries).getAllUsers);
     app.get('/accounts', controllers(db, queries).getAllAcoounts);
     app.get('/creditCards', controllers(db, queries).getAllCreditCards);
+    app.get('/user', controllers(db, queries).getUserBy);
+
+    app.post('/register', controllers(db, queries).addUser);
   })
   .catch(error => {
     console.error('Failed to start server:', error);
