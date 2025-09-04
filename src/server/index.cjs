@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 
 const middleware = require('./middleware.cjs');
 const controllers = require('./controllers.cjs');
+const userControllers = require('./controllers/user.cjs');
 
 dotenv.config();
 
@@ -63,12 +64,12 @@ initializeDatabase()
 
     // Routes
     app.get('/', controllers(db, queries).getRoot);
-    app.get('/users', controllers(db, queries).getAllUsers);
+    app.get('/users', userControllers(db, queries).getAllUsers);
     app.get('/accounts', controllers(db, queries).getAllAcoounts);
     app.get('/creditCards', controllers(db, queries).getAllCreditCards);
-    app.get('/user', controllers(db, queries).getUserBy);
+    app.get('/user', userControllers(db, queries).getUserBy);
 
-    app.post('/register', controllers(db, queries).addUser);
+    app.post('/register', userControllers(db, queries).addUser);
   })
   .catch(error => {
     console.error('Failed to start server:', error);
